@@ -4,13 +4,14 @@ import MomentSelector from "../src/components/MomentSelector";
 import AiStyleFinder from "../src/components/AiStyleFinder";
 import CustomOrder from "../src/components/CustomOrder";
 import CategoryTabs from "../src/components/CategoryTabs";
+import MainBanner from "../src/components/MainBanner";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#f7f3ee] text-[#1f1f1f]">
       <Header />
       <CategoryTabs />
-
+      <MainBanner />
       <HeroSection />
 
       <section className="flex flex-col items-center px-6 pb-20 text-center">
