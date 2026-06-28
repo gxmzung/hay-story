@@ -3,11 +3,13 @@ import HeroSection from "../src/components/HeroSection";
 import MomentSelector from "../src/components/MomentSelector";
 import AiStyleFinder from "../src/components/AiStyleFinder";
 import CustomOrder from "../src/components/CustomOrder";
+import CategoryTabs from "../src/components/CategoryTabs";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#f7f3ee] text-[#1f1f1f]">
       <Header />
+      <CategoryTabs />
 
       <HeroSection />
 
