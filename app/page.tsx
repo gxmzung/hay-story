@@ -5,6 +5,7 @@ import AiStyleFinder from "../src/components/AiStyleFinder";
 import CustomOrder from "../src/components/CustomOrder";
 import CategoryTabs from "../src/components/CategoryTabs";
 import MainBanner from "../src/components/MainBanner";
+import BrandCircleList from "../src/components/BrandCircleList";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <CategoryTabs />
       <MainBanner />
       <HeroSection />
+      <BrandCircleList />
 
       <section className="flex flex-col items-center px-6 pb-20 text-center">
         <MomentSelector />
