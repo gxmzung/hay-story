@@ -1,0 +1,38 @@
+export const products = [
+  {
+    id: 1,
+    brand: "HAYOUNG STUDIO",
+    name: "Soft Beige Shirt",
+    price: "42,000원",
+    discount: "18%",
+    imageColor: "bg-[#d8c7b4]",
+    story: "새로운 공간에 들어서는 사람을 위한 부드러운 첫인상.",
+  },
+  {
+    id: 2,
+    brand: "HAYOUNG STUDIO",
+    name: "Calm Wide Slacks",
+    price: "58,000원",
+    discount: "12%",
+    imageColor: "bg-[#b8afa5]",
+    story: "차분하지만 흔들리지 않는 하루를 위한 실루엣.",
+  },
+  {
+    id: 3,
+    brand: "HAYOUNG STUDIO",
+    name: "Story Knit Cardigan",
+    price: "64,000원",
+    discount: "9%",
+    imageColor: "bg-[#c9b79c]",
+    story: "조금 더 따뜻한 사람이 되고 싶은 날의 옷.",
+  },
+  {
+    id: 4,
+    brand: "HAYOUNG STUDIO",
+    name: "First Day Blouse",
+    price: "47,000원",
+    discount: "21%",
+    imageColor: "bg-[#ddd6cc]",
+    story: "첫날의 긴장을 부드럽게 감싸주는 블라우스.",
+  },
+];
