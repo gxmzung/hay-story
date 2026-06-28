@@ -8,6 +8,7 @@ import MainBanner from "../src/components/MainBanner";
 import BrandCircleList from "../src/components/BrandCircleList";
 import ProductGrid from "../src/components/ProductGrid";
 import QuickMenu from "../src/components/QuickMenu";
+import Footer from "../src/components/Footer";
 
 export default function Home() {
   return (
@@ -53,6 +54,7 @@ export default function Home() {
 
         <CustomOrder />
       </section>
+      <Footer />
     </main>
   );
 }
