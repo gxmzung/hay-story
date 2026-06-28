@@ -18,7 +18,7 @@ export default function Home() {
       <QuickMenu />
       <BrandCircleList />
 
-      <section className="flex flex-col items-center px-6 py-16 text-center">
+      <section className="flex flex-col items-center bg-[#f7f3ee] px-6 py-10 text-center">
         <MomentSelector />
         <AiStyleFinder />
         <CustomOrder />

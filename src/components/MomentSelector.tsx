@@ -25,7 +25,7 @@ export default function MomentSelector() {
   const [selected, setSelected] = useState<string | null>(null);
 
   return (
-    <section className="w-full max-w-3xl">
+    <section className="w-full max-w-3xl py-6">
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
         {moments.map((moment) => (
           <button
