@@ -1,0 +1,5 @@
+<svg width="800" height="1000" viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="1000" fill="#b8afa5"/>
+  <path d="M300 170h200l35 650h-95l-40-430-40 430h-95l35-650z" fill="#f7f3ee"/>
+  <text x="400" y="890" text-anchor="middle" font-size="36" font-family="Arial" fill="#111">Calm Wide Slacks</text>
+</svg>

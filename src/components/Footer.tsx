@@ -10,6 +10,10 @@ export default function Footer() {
           Started from a dream. Built for your story.
         </p>
 
+        <p className="mt-3">
+          Developed by 이영준 · Computer Science Developer
+        </p>
+
         <div className="mt-6 flex flex-wrap gap-4">
           <span>About</span>
           <span>Custom Order</span>

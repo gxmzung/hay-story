@@ -1,0 +1,6 @@
+<svg width="800" height="1000" viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="1000" fill="#ddd6cc"/>
+  <path d="M280 200h240l80 140-80 60-35-65v410H315V335l-35 65-80-60 80-140z" fill="#ffffff"/>
+  <path d="M360 210h80l-40 90z" fill="#ddd6cc"/>
+  <text x="400" y="890" text-anchor="middle" font-size="36" font-family="Arial" fill="#111">First Day Blouse</text>
+</svg>

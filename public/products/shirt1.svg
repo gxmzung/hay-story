@@ -1,0 +1,5 @@
+<svg width="800" height="1000" viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="1000" fill="#d8c7b4"/>
+  <path d="M260 180h280l90 150-95 55-40-70v445H305V315l-40 70-95-55 90-150z" fill="#f7f3ee"/>
+  <text x="400" y="890" text-anchor="middle" font-size="36" font-family="Arial" fill="#111">Soft Beige Shirt</text>
+</svg>
