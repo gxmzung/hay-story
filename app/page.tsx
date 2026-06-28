@@ -6,6 +6,7 @@ import CustomOrder from "../src/components/CustomOrder";
 import CategoryTabs from "../src/components/CategoryTabs";
 import MainBanner from "../src/components/MainBanner";
 import BrandCircleList from "../src/components/BrandCircleList";
+import ProductGrid from "../src/components/ProductGrid";
 
 export default function Home() {
   return (
@@ -15,7 +16,7 @@ export default function Home() {
       <MainBanner />
       <HeroSection />
       <BrandCircleList />
-
+      <ProductGrid />
       <section className="flex flex-col items-center px-6 pb-20 text-center">
         <MomentSelector />
 
