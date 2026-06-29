@@ -8,6 +8,7 @@ import AiStyleFinder from "../src/components/AiStyleFinder";
 import CustomOrder from "../src/components/CustomOrder";
 import ProductGrid from "../src/components/ProductGrid";
 import Footer from "../src/components/Footer";
+import DesignerTalk from "../src/components/DesignerTalk";
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
       </section>
 
       <ProductGrid />
+      <DesignerTalk />
       <Footer />
     </main>
   );
