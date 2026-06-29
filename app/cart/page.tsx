@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Header from "../../src/components/Header";
 import Footer from "../../src/components/Footer";
 import { products } from "../../src/data/products";
@@ -36,9 +37,12 @@ export default function CartPage() {
           <p className="text-sm text-neutral-500">예상 결제 금액</p>
           <p className="mt-2 text-3xl font-bold">100,000원</p>
 
-          <button className="mt-6 rounded-full bg-black px-8 py-4 text-white">
+          <Link
+            href="/order"
+            className="mt-6 inline-block rounded-full bg-black px-8 py-4 text-white"
+          >
             주문서 작성하기
-          </button>
+          </Link>
         </div>
       </section>
 
