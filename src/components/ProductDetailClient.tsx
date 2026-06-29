@@ -3,11 +3,34 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import type { Product } from "../types/product";
+import { addToCart, getCart } from "../lib/cart";
+import { getFavorites, toggleFavorite } from "../lib/favorites";
 
-export default function ProductDetailClient({ product }: { product: Product }) {
-  const [liked, setLiked] = useState(false);
-  const [cartAdded, setCartAdded] = useState(false);
+type ProductDetail = {
+  id: string | number;
+  name: string;
+  price: string;
+  story: string;
+  image: string;
+};
+
+export default function ProductDetailClient({
+  product,
+}: {
+  product: ProductDetail;
+}) {
+  const productId = String(product.id);
+
+  const [liked, setLiked] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return getFavorites().includes(productId);
+  });
+
+  const [cartAdded, setCartAdded] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return getCart().includes(productId);
+  });
+
   const [message, setMessage] = useState("");
   const [showInquiry, setShowInquiry] = useState(false);
   const [inquiry, setInquiry] = useState("");
@@ -35,7 +58,6 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             </p>
 
             <h1 className="mt-5 text-5xl font-bold">{product.name}</h1>
-
             <p className="mt-6 text-3xl font-semibold">{product.price}</p>
 
             <div className="mt-10 rounded-3xl bg-[#f7f3ee] p-6">
@@ -60,7 +82,10 @@ export default function ProductDetailClient({ product }: { product: Product }) {
               </button>
 
               <button
-                onClick={() => setLiked((prev) => !prev)}
+                onClick={() => {
+                  const result = toggleFavorite(productId);
+                  setLiked(result);
+                }}
                 className="rounded-full border border-black px-8 py-4"
               >
                 {liked ? "찜 완료 ♥" : "찜하기 ♡"}
@@ -68,6 +93,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
 
               <button
                 onClick={() => {
+                  addToCart(productId);
                   setCartAdded(true);
                   setMessage("장바구니에 담았습니다.");
                 }}
