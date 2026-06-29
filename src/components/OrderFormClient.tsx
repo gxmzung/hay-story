@@ -1,9 +1,19 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function OrderFormClient() {
+  const router = useRouter();
   const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = () => {
+    setSubmitted(true);
+
+    setTimeout(() => {
+      router.push("/order/complete");
+    }, 500);
+  };
 
   return (
     <div className="mt-10 grid gap-5">
@@ -24,7 +34,7 @@ export default function OrderFormClient() {
       />
 
       <button
-        onClick={() => setSubmitted(true)}
+        onClick={handleSubmit}
         className="rounded-full bg-black px-8 py-4 text-white"
       >
         주문 요청 보내기
@@ -32,7 +42,7 @@ export default function OrderFormClient() {
 
       {submitted && (
         <div className="rounded-2xl bg-[#f7f3ee] p-5 text-neutral-700">
-          주문 요청이 저장되었습니다. 디자이너가 확인 후 연락드립니다.
+          주문 요청이 저장되었습니다. 완료 페이지로 이동합니다.
         </div>
       )}
     </div>
