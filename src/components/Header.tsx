@@ -1,7 +1,8 @@
 "use client";
 
-import { Heart, Menu, Search, ShoppingBag, User } from "lucide-react";
 import Link from "next/link";
+import { Heart, Menu, Search, ShoppingBag, User } from "lucide-react";
+
 const menus = ["STORY", "NEW", "BEST", "ORDER", "COMMUNITY", "DESIGNER"];
 
 export default function Header() {
@@ -13,9 +14,11 @@ export default function Header() {
             <Menu size={24} />
           </button>
 
-          <h1 className="text-xl font-bold tracking-wide md:text-2xl">
-            HAYOUNG STUDIO
-          </h1>
+          <Link href="/">
+            <h1 className="text-xl font-bold tracking-wide md:text-2xl">
+              HAYOUNG STUDIO
+            </h1>
+          </Link>
         </div>
 
         <div className="hidden gap-8 text-sm font-medium md:flex">
@@ -30,7 +33,7 @@ export default function Header() {
           <Search size={20} />
           <Heart size={20} />
           <Link href="/cart">
-          <ShoppingBag size={20} />
+            <ShoppingBag size={20} />
           </Link>
           <User size={20} />
         </div>
