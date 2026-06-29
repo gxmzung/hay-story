@@ -8,6 +8,8 @@ import type { Product } from "../types/product";
 export default function ProductDetailClient({ product }: { product: Product }) {
   const [liked, setLiked] = useState(false);
   const [message, setMessage] = useState("");
+  const [showInquiry, setShowInquiry] = useState(false);
+  const [inquiry, setInquiry] = useState("");
 
   return (
     <main className="min-h-screen bg-white text-[#1f1f1f]">
@@ -18,7 +20,12 @@ export default function ProductDetailClient({ product }: { product: Product }) {
 
         <section className="mt-10 grid gap-12 md:grid-cols-2">
           <div className="relative h-[720px] overflow-hidden rounded-3xl bg-neutral-100">
-            <Image src={product.image} alt={product.name} fill className="object-cover" />
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              className="object-cover"
+            />
           </div>
 
           <div className="pt-4">
@@ -30,13 +37,21 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             <p className="mt-6 text-3xl font-semibold">{product.price}</p>
 
             <div className="mt-10 rounded-3xl bg-[#f7f3ee] p-6">
-              <p className="text-sm tracking-[0.25em] text-neutral-400">STORY</p>
-              <p className="mt-4 leading-8 text-neutral-700">{product.story}</p>
+              <p className="text-sm tracking-[0.25em] text-neutral-400">
+                STORY
+              </p>
+              <p className="mt-4 leading-8 text-neutral-700">
+                {product.story}
+              </p>
             </div>
 
             <div className="mt-8 grid gap-3">
               <button
-                onClick={() => setMessage("주문 요청이 생성되었습니다. 디자이너가 확인 후 연락드립니다.")}
+                onClick={() =>
+                  setMessage(
+                    "주문 요청이 생성되었습니다. 디자이너가 확인 후 연락드립니다."
+                  )
+                }
                 className="rounded-full bg-black px-8 py-4 text-white"
               >
                 주문하기
@@ -50,12 +65,44 @@ export default function ProductDetailClient({ product }: { product: Product }) {
               </button>
 
               <button
-                onClick={() => setMessage("디자이너 문의가 준비되었습니다. 원하는 분위기와 상황을 남겨주세요.")}
+                onClick={() => {
+                  setShowInquiry((prev) => !prev);
+                  setMessage("");
+                }}
                 className="rounded-full border border-neutral-300 px-8 py-4"
               >
                 디자이너에게 문의하기
               </button>
             </div>
+
+            {showInquiry && (
+              <div className="mt-6 rounded-3xl bg-[#f7f3ee] p-6">
+                <p className="text-sm tracking-[0.25em] text-neutral-400">
+                  DESIGNER INQUIRY
+                </p>
+
+                <textarea
+                  rows={5}
+                  value={inquiry}
+                  onChange={(e) => setInquiry(e.target.value)}
+                  className="mt-4 w-full rounded-2xl border border-neutral-200 p-4 outline-none"
+                  placeholder="예) 첫 출근 때 입고 싶은데, 너무 딱딱하지 않고 차분한 느낌으로 가능할까요?"
+                />
+
+                <button
+                  onClick={() =>
+                    setMessage(
+                      inquiry
+                        ? "문의가 저장되었습니다. 디자이너가 요청 내용을 확인합니다."
+                        : "문의 내용을 먼저 입력해주세요."
+                    )
+                  }
+                  className="mt-4 rounded-full bg-black px-6 py-3 text-white"
+                >
+                  문의 저장하기
+                </button>
+              </div>
+            )}
 
             {message && (
               <div className="mt-6 rounded-2xl bg-[#f7f3ee] p-5 text-neutral-700">
