@@ -7,7 +7,7 @@ export default function SearchResults({ query }: { query?: string }) {
 
   const filtered = keyword
     ? products.filter((p) =>
-        [p.name, p.story, p.price].some((value) =>
+        [p.name, p.story, p.price, p.brand, p.category].some((value) =>
           value.toLowerCase().includes(keyword)
         )
       )
@@ -39,7 +39,7 @@ export default function SearchResults({ query }: { query?: string }) {
                   </div>
 
                   <p className="mt-4 text-xs font-bold text-neutral-500">
-                    HAYOUNG STUDIO
+                    {p.brand}
                   </p>
 
                   <h3 className="mt-1 font-semibold">{p.name}</h3>
@@ -47,6 +47,8 @@ export default function SearchResults({ query }: { query?: string }) {
                   <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-500">
                     {p.story}
                   </p>
+
+                  <p className="mt-2 text-xs text-neutral-400">{p.category}</p>
 
                   <p className="mt-3 font-bold">{p.price}</p>
                 </article>
