@@ -7,6 +7,7 @@ import type { Product } from "../types/product";
 
 export default function ProductDetailClient({ product }: { product: Product }) {
   const [liked, setLiked] = useState(false);
+  const [cartAdded, setCartAdded] = useState(false);
   const [message, setMessage] = useState("");
   const [showInquiry, setShowInquiry] = useState(false);
   const [inquiry, setInquiry] = useState("");
@@ -34,6 +35,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             </p>
 
             <h1 className="mt-5 text-5xl font-bold">{product.name}</h1>
+
             <p className="mt-6 text-3xl font-semibold">{product.price}</p>
 
             <div className="mt-10 rounded-3xl bg-[#f7f3ee] p-6">
@@ -62,6 +64,16 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                 className="rounded-full border border-black px-8 py-4"
               >
                 {liked ? "찜 완료 ♥" : "찜하기 ♡"}
+              </button>
+
+              <button
+                onClick={() => {
+                  setCartAdded(true);
+                  setMessage("장바구니에 담았습니다.");
+                }}
+                className="rounded-full border border-neutral-300 px-8 py-4"
+              >
+                {cartAdded ? "장바구니 담김 ✓" : "장바구니 담기"}
               </button>
 
               <button
