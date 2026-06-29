@@ -1,7 +1,7 @@
 "use client";
 
 import { Heart, Menu, Search, ShoppingBag, User } from "lucide-react";
-
+import Link from "next/link";
 const menus = ["STORY", "NEW", "BEST", "ORDER", "COMMUNITY", "DESIGNER"];
 
 export default function Header() {
@@ -29,7 +29,9 @@ export default function Header() {
         <div className="flex gap-4">
           <Search size={20} />
           <Heart size={20} />
+          <Link href="/cart">
           <ShoppingBag size={20} />
+          </Link>
           <User size={20} />
         </div>
       </div>
