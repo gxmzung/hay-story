@@ -1,12 +1,16 @@
+import Link from "next/link";
+
 const categories = [
   "전체",
-  "새로운 시작",
-  "첫 출근",
-  "면접",
-  "여행",
-  "생일",
+  "상의",
+  "셔츠",
+  "팬츠",
+  "원피스",
+  "니트",
+  "아우터",
+  "가방",
+  "소품",
   "세미커스텀",
-  "디자이너 스토리",
 ];
 
 export default function CategoryTabs() {
@@ -14,12 +18,17 @@ export default function CategoryTabs() {
     <section className="border-b border-neutral-200 bg-white">
       <div className="mx-auto flex max-w-7xl gap-6 overflow-x-auto px-6 py-4 text-sm font-medium">
         {categories.map((category) => (
-          <button
+          <Link
             key={category}
+            href={
+              category === "전체"
+                ? "/search"
+                : `/search?query=${encodeURIComponent(category)}`
+            }
             className="whitespace-nowrap text-neutral-700 transition hover:text-black"
           >
             {category}
-          </button>
+          </Link>
         ))}
       </div>
     </section>
