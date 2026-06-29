@@ -1,11 +1,21 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Heart, Menu, Search, ShoppingBag, User } from "lucide-react";
+import { useState } from "react";
 
 const menus = ["STORY", "NEW", "BEST", "ORDER", "COMMUNITY", "DESIGNER"];
 
 export default function Header() {
+  const router = useRouter();
+  const [query, setQuery] = useState("");
+
+  const handleSearch = () => {
+    if (!query.trim()) return;
+    router.push(`/search?query=${encodeURIComponent(query)}`);
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-black text-white">
       <div className="flex h-16 items-center justify-between border-b border-neutral-800 px-6 md:px-10">
@@ -40,10 +50,24 @@ export default function Header() {
       </div>
 
       <div className="bg-neutral-950 px-6 py-4 md:px-10">
-        <input
-          placeholder="어떤 이야기를 입고 싶나요?"
-          className="w-full rounded-xl bg-white px-5 py-3 text-black outline-none"
-        />
+        <div className="flex gap-2">
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSearch();
+            }}
+            placeholder="어떤 이야기를 입고 싶나요?"
+            className="w-full rounded-xl bg-white px-5 py-3 text-black outline-none"
+          />
+
+          <button
+            onClick={handleSearch}
+            className="rounded-xl bg-white px-5 py-3 text-black"
+          >
+            검색
+          </button>
+        </div>
       </div>
     </header>
   );
