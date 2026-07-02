@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addToCart, getCart } from "../lib/cart";
 import { getFavorites, toggleFavorite } from "../lib/favorites";
+import { addRecentProduct } from "../lib/recent";
 
 type ProductDetail = {
   id: string | number;
@@ -35,11 +36,15 @@ export default function ProductDetailClient({
   const [showInquiry, setShowInquiry] = useState(false);
   const [inquiry, setInquiry] = useState("");
 
+  useEffect(() => {
+    addRecentProduct(productId);
+  }, [productId]);
+
   return (
     <main className="min-h-screen bg-white text-[#1f1f1f]">
       <div className="mx-auto max-w-7xl px-6 py-10">
-        <Link href="/" className="text-sm text-neutral-500 hover:text-black">
-          ← 홈으로 돌아가기
+        <Link href="/collection" className="text-sm text-neutral-500 hover:text-black">
+          ← 컬렉션으로 돌아가기
         </Link>
 
         <section className="mt-10 grid gap-12 md:grid-cols-2">
