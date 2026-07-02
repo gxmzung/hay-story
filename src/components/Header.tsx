@@ -5,7 +5,14 @@ import { useRouter } from "next/navigation";
 import { Heart, Menu, Search, ShoppingBag, User } from "lucide-react";
 import { useState } from "react";
 
-const menus = ["STORY", "NEW", "BEST", "ORDER", "COMMUNITY", "DESIGNER"];
+const menus = [
+  { label: "STORY", href: "/story" },
+  { label: "NEW", href: "/new" },
+  { label: "BEST", href: "/best" },
+  { label: "ORDER", href: "/order" },
+  { label: "COMMUNITY", href: "/community" },
+  { label: "DESIGNER", href: "/designer" },
+];
 
 export default function Header() {
   const router = useRouter();
@@ -31,13 +38,17 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="hidden gap-8 text-sm font-medium md:flex">
+        <nav className="hidden gap-8 text-sm font-medium md:flex">
           {menus.map((menu) => (
-            <button key={menu} className="transition hover:text-neutral-300">
-              {menu}
-            </button>
+            <Link
+              key={menu.label}
+              href={menu.href}
+              className="transition hover:text-neutral-300"
+            >
+              {menu.label}
+            </Link>
           ))}
-        </div>
+        </nav>
 
         <div className="flex gap-4">
           <Search size={20} />
