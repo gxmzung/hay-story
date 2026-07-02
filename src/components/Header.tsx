@@ -51,13 +51,20 @@ export default function Header() {
         </nav>
 
         <div className="flex gap-4">
-          <Search size={20} />
-          <Heart size={20} />
-          <Link href="/cart">
-            <ShoppingBag size={20} />
-          </Link>
-          <User size={20} />
-        </div>
+      <Search size={20} />
+
+      <Link href="/favorites">
+      <Heart size={20} />
+      </Link>
+
+  <Link href="/cart">
+    <ShoppingBag size={20} />
+  </Link>
+
+  <Link href="/mypage">
+  <User size={20} />
+</Link>
+</div>
       </div>
 
       <div className="bg-neutral-950 px-6 py-4 md:px-10">
