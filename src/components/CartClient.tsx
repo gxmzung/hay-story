@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { products } from "../data/products";
 import { getCart, removeFromCart } from "../lib/cart";
+import { formatPrice, parsePrice } from "../lib/price";
 
 export default function CartClient() {
   const [cartIds, setCartIds] = useState<string[]>(() => {
@@ -14,6 +15,13 @@ export default function CartClient() {
   const cartItems = products.filter((product) =>
     cartIds.includes(String(product.id))
   );
+
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + parsePrice(item.price),
+    0
+  );
+
+  const hasCustomPrice = cartItems.some((item) => item.price.includes("상담"));
 
   const handleRemove = (id: string | number) => {
     const productId = String(id);
@@ -37,10 +45,13 @@ export default function CartClient() {
               >
                 <div>
                   <p className="text-sm font-semibold text-neutral-400">
-                    HAYOUNG STUDIO
+                    {item.brand}
                   </p>
                   <h2 className="mt-2 text-2xl font-bold">{item.name}</h2>
                   <p className="mt-2 text-neutral-500">{item.story}</p>
+                  <p className="mt-2 text-sm text-neutral-400">
+                    {item.category}
+                  </p>
                 </div>
 
                 <div className="text-right">
@@ -59,7 +70,16 @@ export default function CartClient() {
 
           <div className="mt-10 rounded-3xl bg-[#f7f3ee] p-8 text-right">
             <p className="text-sm text-neutral-500">예상 결제 금액</p>
-            <p className="mt-2 text-3xl font-bold">상품별 금액 확인</p>
+
+            <p className="mt-2 text-3xl font-bold">
+              {formatPrice(totalPrice)}
+            </p>
+
+            {hasCustomPrice && (
+              <p className="mt-3 text-sm text-neutral-500">
+                상담 후 결정 상품은 총액에 포함되지 않았습니다.
+              </p>
+            )}
 
             <Link
               href="/order"
@@ -77,7 +97,7 @@ export default function CartClient() {
           </p>
 
           <Link
-            href="/search"
+            href="/collection"
             className="mt-6 inline-block rounded-full bg-black px-8 py-4 text-white"
           >
             상품 보러가기
