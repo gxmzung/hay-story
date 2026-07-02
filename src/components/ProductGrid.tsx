@@ -2,14 +2,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { products } from "../data/products";
 
-export default function ProductGrid() {
+type ProductGridProps = {
+  title?: string;
+  subtitle?: string;
+  items?: typeof products;
+};
+
+export default function ProductGrid({
+  title = "Selected Pieces",
+  subtitle = "COLLECTION",
+  items = products,
+}: ProductGridProps) {
   return (
     <section className="bg-white px-6 py-12">
       <div className="mx-auto max-w-7xl">
-        <h2 className="text-2xl font-bold">오늘의 순간에 어울리는 옷</h2>
+        <p className="text-sm tracking-[0.3em] text-neutral-400">{subtitle}</p>
+        <h2 className="mt-4 text-4xl font-bold">{title}</h2>
 
         <div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
-          {products.map((p) => (
+          {items.map((p) => (
             <Link key={p.id} href={`/products/${p.id}`}>
               <article className="cursor-pointer transition duration-300 hover:-translate-y-2">
                 <div className="relative h-[360px] overflow-hidden rounded-2xl bg-neutral-100">
@@ -42,6 +53,15 @@ export default function ProductGrid() {
             </Link>
           ))}
         </div>
+
+        {items.length === 0 && (
+          <div className="mt-10 rounded-3xl bg-[#f7f3ee] p-10 text-center">
+            <p className="text-lg font-semibold">상품이 없습니다.</p>
+            <p className="mt-2 text-neutral-500">
+              해당 카테고리 상품은 준비 중입니다.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 import Header from "../../src/components/Header";
 import CategoryTabs from "../../src/components/CategoryTabs";
-import ProductGrid from "../../src/components/ProductGrid";
+import StoryMomentSection from "../../src/components/StoryMomentSection";
 import Footer from "../../src/components/Footer";
 
 export default function CollectionPage() {
@@ -17,12 +17,12 @@ export default function CollectionPage() {
         <h1 className="mt-4 text-5xl font-bold">2026 First Collection</h1>
 
         <p className="mt-6 max-w-2xl leading-8 text-neutral-500">
-          새로운 시작, 첫 출근, 면접, 생일처럼 각자의 순간에 어울리는 옷을
-          제안합니다.
+          새로운 시작, 첫 출근, 면접, 생일처럼 각자의 순간에 어울리는 스타일을
+          제안합니다. 원하는 순간을 선택하면 해당 무드의 상품을 볼 수 있습니다.
         </p>
       </section>
 
-      <ProductGrid />
+      <StoryMomentSection />
       <Footer />
     </main>
   );

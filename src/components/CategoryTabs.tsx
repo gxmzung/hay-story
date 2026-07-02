@@ -16,14 +16,14 @@ const categories = [
 export default function CategoryTabs() {
   return (
     <section className="border-b border-neutral-200 bg-white">
-      <div className="mx-auto flex max-w-7xl gap-6 overflow-x-auto px-6 py-4 text-sm font-medium">
+      <div className="mx-auto flex max-w-7xl justify-center gap-8 overflow-x-auto px-6 py-4 text-sm font-medium">
         {categories.map((category) => (
           <Link
             key={category}
             href={
               category === "전체"
                 ? "/search"
-                : `/search?query=${encodeURIComponent(category)}`
+                : `/category/${encodeURIComponent(category)}`
             }
             className="whitespace-nowrap text-neutral-700 transition hover:text-black"
           >
