@@ -1,43 +1,12 @@
 import Link from "next/link";
-
-const products = {
-  "first-day-shirt": {
-    name: "First Day Shirt",
-    category: "SHIRT",
-    price: "49,000",
-    moment: "첫 출근 / 면접 / 발표",
-    description:
-      "이니셜, 날짜, 짧은 문구를 담을 수 있는 새로운 시작을 위한 베이직 셔츠입니다.",
-    custom: ["이니셜 자수", "날짜 각인", "짧은 문구", "라벨 메시지"],
-  },
-  "new-chapter-blouse": {
-    name: "New Chapter Blouse",
-    category: "BLOUSE",
-    price: "54,000",
-    moment: "새 학기 / 새로운 관계",
-    description:
-      "부담스럽지 않지만 단정한 첫인상을 남길 수 있는 세미 포멀 블라우스입니다.",
-    custom: ["이니셜 자수", "소매 포인트", "라벨 메시지"],
-  },
-  "moment-jacket": {
-    name: "Moment Jacket",
-    category: "OUTER",
-    price: "79,000",
-    moment: "면접 / 발표 / 첫 미팅",
-    description:
-      "중요한 순간에 안정감과 신뢰감을 주는 미니멀 자켓형 아우터입니다.",
-    custom: ["안쪽 라벨 문구", "날짜 각인", "포장 카드"],
-  },
-};
-
-type ProductId = keyof typeof products;
+import { getProductById } from "@/data/products";
 
 export default function ProductDetailPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const product = products[params.id as ProductId];
+  const product = getProductById(params.id);
 
   if (!product) {
     return (
@@ -53,7 +22,10 @@ export default function ProductDetailPage({
   return (
     <main className="min-h-screen bg-[#0f0f0f] px-8 py-12 text-[#f5f5f5]">
       <section className="mx-auto max-w-6xl">
-        <Link href="/collection" className="text-sm tracking-[0.25em] text-neutral-400">
+        <Link
+          href="/collection"
+          className="text-sm tracking-[0.25em] text-neutral-400 hover:text-white"
+        >
           ← COLLECTION
         </Link>
 
@@ -76,7 +48,9 @@ export default function ProductDetailPage({
 
             <h1 className="mt-6 text-5xl font-semibold">{product.name}</h1>
 
-            <p className="mt-6 text-2xl font-semibold">₩{product.price}</p>
+            <p className="mt-6 text-2xl font-semibold">
+              ₩{product.price.toLocaleString()}
+            </p>
 
             <p className="mt-8 max-w-xl leading-8 text-neutral-400">
               {product.description}
@@ -99,7 +73,7 @@ export default function ProductDetailPage({
 
             <div className="mt-12 flex gap-4">
               <Link
-                href={`/order?product=${params.id}`}
+                href={`/order?product=${product.id}`}
                 className="inline-block bg-white px-10 py-4 text-sm font-semibold tracking-[0.2em] text-black transition hover:bg-neutral-300"
               >
                 ORDER
