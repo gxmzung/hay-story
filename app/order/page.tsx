@@ -26,6 +26,22 @@ export default function OrderPage() {
   const selectedProduct = getProductById(productId) || products[0];
 
   const handleAddToCart = () => {
+    const cartItem = {
+      product: selectedProduct.name,
+      productId: selectedProduct.id,
+      size,
+      moment,
+      initial,
+      date,
+      message,
+      request,
+      price: selectedProduct.price,
+      shipping: 3000,
+      total: selectedProduct.price + 3000,
+    };
+
+    localStorage.setItem("hayoung-cart", JSON.stringify(cartItem));
+
     const params = new URLSearchParams({
       product: selectedProduct.name,
       productId: selectedProduct.id,
@@ -36,6 +52,8 @@ export default function OrderPage() {
       message,
       request,
       price: String(selectedProduct.price),
+      shipping: "3000",
+      total: String(selectedProduct.price + 3000),
     });
 
     router.push(`/cart?${params.toString()}`);
