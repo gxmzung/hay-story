@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 
+type OrderStatus = "Received" | "Preparing" | "Shipped" | "Completed";
+
 type Order = {
   id: string;
   customer: string;
@@ -18,7 +20,7 @@ type Order = {
   price: number;
   shipping: number;
   total: number;
-  status: string;
+  status: OrderStatus;
   createdAt: string;
 };
 
@@ -42,6 +44,13 @@ const sampleOrders: Order[] = [
   },
 ];
 
+const statusOptions: OrderStatus[] = [
+  "Received",
+  "Preparing",
+  "Shipped",
+  "Completed",
+];
+
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>(sampleOrders);
 
@@ -52,6 +61,19 @@ export default function AdminOrdersPage() {
       setOrders(JSON.parse(savedOrders));
     }
   }, []);
+
+  const saveOrders = (nextOrders: Order[]) => {
+    setOrders(nextOrders);
+    localStorage.setItem("hayoung-orders", JSON.stringify(nextOrders));
+  };
+
+  const handleChangeStatus = (orderId: string, nextStatus: OrderStatus) => {
+    const nextOrders = orders.map((order) =>
+      order.id === orderId ? { ...order, status: nextStatus } : order,
+    );
+
+    saveOrders(nextOrders);
+  };
 
   const handleClearOrders = () => {
     localStorage.removeItem("hayoung-orders");
@@ -74,7 +96,7 @@ export default function AdminOrdersPage() {
 
           <p className="mt-8 max-w-2xl leading-8 text-neutral-400">
             HAYOUNG STUDIO 쇼핑몰에서 들어온 주문과 커스터마이징 정보를
-            확인하는 관리자용 MVP 화면입니다.
+            확인하고 주문 상태를 변경하는 관리자용 MVP 화면입니다.
           </p>
         </div>
 
@@ -96,7 +118,7 @@ export default function AdminOrdersPage() {
         </div>
 
         <div className="mt-16 overflow-hidden border border-neutral-800 bg-[#151515]">
-          <div className="grid grid-cols-[1.2fr_1fr_1.2fr_0.8fr_0.8fr] border-b border-neutral-800 px-6 py-4 text-xs tracking-[0.25em] text-neutral-500">
+          <div className="grid grid-cols-[1.2fr_1fr_1.2fr_0.8fr_1fr] border-b border-neutral-800 px-6 py-4 text-xs tracking-[0.25em] text-neutral-500">
             <div>ORDER</div>
             <div>CUSTOMER</div>
             <div>PRODUCT</div>
@@ -107,7 +129,7 @@ export default function AdminOrdersPage() {
           {orders.map((order) => (
             <div
               key={order.id}
-              className="grid grid-cols-[1.2fr_1fr_1.2fr_0.8fr_0.8fr] border-b border-neutral-800 px-6 py-6 last:border-b-0"
+              className="grid grid-cols-[1.2fr_1fr_1.2fr_0.8fr_1fr] border-b border-neutral-800 px-6 py-6 last:border-b-0"
             >
               <div>
                 <p className="font-semibold">{order.id}</p>
@@ -143,12 +165,47 @@ export default function AdminOrdersPage() {
               </div>
 
               <div>
-                <span className="inline-block border border-neutral-700 px-4 py-2 text-xs tracking-[0.2em] text-neutral-300">
-                  {order.status}
-                </span>
+                <select
+                  value={order.status}
+                  onChange={(event) =>
+                    handleChangeStatus(
+                      order.id,
+                      event.target.value as OrderStatus,
+                    )
+                  }
+                  className="w-full border border-neutral-700 bg-[#0f0f0f] px-4 py-3 text-sm text-white outline-none"
+                >
+                  {statusOptions.map((status) => (
+                    <option key={status} value={status}>
+                      {status}
+                    </option>
+                  ))}
+                </select>
+
+                <p className="mt-3 text-xs text-neutral-500">
+                  상태 변경 시 localStorage에 바로 저장됩니다.
+                </p>
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-4">
+          {statusOptions.map((status) => {
+            const count = orders.filter((order) => order.status === status).length;
+
+            return (
+              <div
+                key={status}
+                className="border border-neutral-800 bg-[#151515] p-6"
+              >
+                <p className="text-xs tracking-[0.3em] text-neutral-500">
+                  {status.toUpperCase()}
+                </p>
+                <p className="mt-4 text-3xl font-semibold">{count}</p>
+              </div>
+            );
+          })}
         </div>
 
         <div className="mt-10 border border-neutral-800 bg-[#151515] p-8">
@@ -158,8 +215,8 @@ export default function AdminOrdersPage() {
 
           <p className="mt-5 max-w-3xl leading-8 text-neutral-400">
             현재는 localStorage 기반 주문 관리 화면입니다. 다음 단계에서는
-            Supabase, Firebase, PostgreSQL 같은 DB에 주문 정보를 저장하고,
-            관리자 계정에서 주문 상태를 변경할 수 있게 만들 수 있습니다.
+            주문 상세 페이지, 실제 관리자 로그인, DB 저장, 결제 연동, 배송 상태
+            알림 기능으로 확장할 수 있습니다.
           </p>
         </div>
       </section>
