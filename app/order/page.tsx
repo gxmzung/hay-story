@@ -1,10 +1,34 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+
+const productPrices = {
+  "First Day Shirt": 49000,
+  "New Chapter Blouse": 54000,
+  "Moment Jacket": 79000,
+};
+
 export default function OrderPage() {
+  const [product, setProduct] = useState("First Day Shirt");
+  const [size, setSize] = useState("M");
+  const [moment, setMoment] = useState("첫 출근");
+  const [initial, setInitial] = useState("YJ");
+  const [date, setDate] = useState("2026.03.02");
+  const [message, setMessage] = useState("Begin Again");
+  const [request, setRequest] = useState("");
+
+  const price = productPrices[product as keyof typeof productPrices];
+
   return (
     <main className="min-h-screen bg-[#0f0f0f] px-8 py-12 text-[#f5f5f5]">
       <section className="mx-auto max-w-5xl">
-        <a href="/collection" className="text-sm tracking-[0.25em] text-neutral-400">
+        <Link
+          href="/collection"
+          className="text-sm tracking-[0.25em] text-neutral-400 hover:text-white"
+        >
           ← COLLECTION
-        </a>
+        </Link>
 
         <div className="mt-16">
           <p className="text-sm tracking-[0.35em] text-neutral-500">
@@ -18,8 +42,8 @@ export default function OrderPage() {
           </h1>
 
           <p className="mt-8 max-w-2xl leading-8 text-neutral-400">
-            첫 출근, 면접, 새 학기, 발표처럼 중요한 순간을 위해
-            이니셜, 날짜, 짧은 문구를 선택해 나만의 제품을 구성해보세요.
+            첫 출근, 면접, 새 학기, 발표처럼 중요한 순간을 위해 이니셜,
+            날짜, 짧은 문구를 선택해 나만의 제품을 구성해보세요.
           </p>
         </div>
 
@@ -29,7 +53,11 @@ export default function OrderPage() {
               <label className="block text-sm tracking-[0.25em] text-neutral-500">
                 PRODUCT
               </label>
-              <select className="mt-3 w-full border border-neutral-700 bg-[#0f0f0f] px-4 py-4 text-white outline-none">
+              <select
+                value={product}
+                onChange={(event) => setProduct(event.target.value)}
+                className="mt-3 w-full border border-neutral-700 bg-[#0f0f0f] px-4 py-4 text-white outline-none"
+              >
                 <option>First Day Shirt</option>
                 <option>New Chapter Blouse</option>
                 <option>Moment Jacket</option>
@@ -40,7 +68,11 @@ export default function OrderPage() {
               <label className="block text-sm tracking-[0.25em] text-neutral-500">
                 SIZE
               </label>
-              <select className="mt-3 w-full border border-neutral-700 bg-[#0f0f0f] px-4 py-4 text-white outline-none">
+              <select
+                value={size}
+                onChange={(event) => setSize(event.target.value)}
+                className="mt-3 w-full border border-neutral-700 bg-[#0f0f0f] px-4 py-4 text-white outline-none"
+              >
                 <option>S</option>
                 <option>M</option>
                 <option>L</option>
@@ -52,7 +84,11 @@ export default function OrderPage() {
               <label className="block text-sm tracking-[0.25em] text-neutral-500">
                 MOMENT
               </label>
-              <select className="mt-3 w-full border border-neutral-700 bg-[#0f0f0f] px-4 py-4 text-white outline-none">
+              <select
+                value={moment}
+                onChange={(event) => setMoment(event.target.value)}
+                className="mt-3 w-full border border-neutral-700 bg-[#0f0f0f] px-4 py-4 text-white outline-none"
+              >
                 <option>첫 출근</option>
                 <option>면접</option>
                 <option>새 학기</option>
@@ -68,6 +104,8 @@ export default function OrderPage() {
               </label>
               <input
                 type="text"
+                value={initial}
+                onChange={(event) => setInitial(event.target.value)}
                 placeholder="예: YJ"
                 maxLength={6}
                 className="mt-3 w-full border border-neutral-700 bg-[#0f0f0f] px-4 py-4 text-white outline-none placeholder:text-neutral-600"
@@ -80,6 +118,8 @@ export default function OrderPage() {
               </label>
               <input
                 type="text"
+                value={date}
+                onChange={(event) => setDate(event.target.value)}
                 placeholder="예: 2026.03.02"
                 className="mt-3 w-full border border-neutral-700 bg-[#0f0f0f] px-4 py-4 text-white outline-none placeholder:text-neutral-600"
               />
@@ -91,6 +131,8 @@ export default function OrderPage() {
               </label>
               <input
                 type="text"
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
                 placeholder="예: Begin Again"
                 maxLength={24}
                 className="mt-3 w-full border border-neutral-700 bg-[#0f0f0f] px-4 py-4 text-white outline-none placeholder:text-neutral-600"
@@ -102,6 +144,8 @@ export default function OrderPage() {
                 REQUEST
               </label>
               <textarea
+                value={request}
+                onChange={(event) => setRequest(event.target.value)}
                 placeholder="추가 요청사항을 적어주세요."
                 rows={5}
                 className="mt-3 w-full resize-none border border-neutral-700 bg-[#0f0f0f] px-4 py-4 text-white outline-none placeholder:text-neutral-600"
@@ -126,25 +170,54 @@ export default function OrderPage() {
                 <p className="text-xs tracking-[0.35em] text-neutral-500">
                   CUSTOM LABEL
                 </p>
-                <p className="mt-5 text-3xl font-semibold">Begin Again</p>
-                <p className="mt-2 text-sm text-neutral-400">YJ · 2026.03.02</p>
+                <p className="mt-5 text-3xl font-semibold">
+                  {message || "Your Message"}
+                </p>
+                <p className="mt-2 text-sm text-neutral-400">
+                  {initial || "INITIAL"} · {date || "DATE"}
+                </p>
               </div>
             </div>
 
             <div className="mt-8 space-y-4 text-sm text-neutral-400">
-              <div className="flex justify-between">
+              <div className="flex justify-between gap-6">
                 <span>Product</span>
-                <span>First Day Shirt</span>
+                <span className="text-right text-white">{product}</span>
               </div>
-              <div className="flex justify-between">
+
+              <div className="flex justify-between gap-6">
+                <span>Size</span>
+                <span className="text-right text-white">{size}</span>
+              </div>
+
+              <div className="flex justify-between gap-6">
+                <span>Moment</span>
+                <span className="text-right text-white">{moment}</span>
+              </div>
+
+              <div className="flex justify-between gap-6">
                 <span>Custom</span>
-                <span>Initial / Date / Message</span>
+                <span className="text-right text-white">
+                  Initial / Date / Message
+                </span>
               </div>
-              <div className="flex justify-between">
+
+              <div className="flex justify-between gap-6">
                 <span>Price</span>
-                <span>₩49,000</span>
+                <span className="text-right text-white">
+                  ₩{price.toLocaleString()}
+                </span>
               </div>
             </div>
+
+            {request && (
+              <div className="mt-8 border-t border-neutral-800 pt-6">
+                <p className="text-sm tracking-[0.25em] text-neutral-500">
+                  REQUEST
+                </p>
+                <p className="mt-3 leading-7 text-neutral-400">{request}</p>
+              </div>
+            )}
 
             <p className="mt-8 border-t border-neutral-800 pt-6 leading-7 text-neutral-500">
               현재 페이지는 실제 결제 기능이 아닌, 세미 커스터마이징 주문
