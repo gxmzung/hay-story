@@ -96,12 +96,12 @@ export default function CheckoutPage() {
               />
             </div>
 
-            <button
-              type="button"
-              className="w-full bg-white px-8 py-5 text-sm font-semibold tracking-[0.25em] text-black transition hover:bg-neutral-300"
+            <Link
+                href="/complete"
+                className="block w-full bg-white px-8 py-5 text-center text-sm font-semibold tracking-[0.25em] text-black transition hover:bg-neutral-300"
             >
-              PLACE ORDER
-            </button>
+                PLACE ORDER
+            </Link>
           </form>
 
           <aside className="h-fit border border-neutral-800 bg-[#151515] p-8">
