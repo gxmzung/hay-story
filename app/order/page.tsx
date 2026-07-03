@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const productPrices = {
   "First Day Shirt": 49000,
@@ -10,6 +11,8 @@ const productPrices = {
 };
 
 export default function OrderPage() {
+  const router = useRouter();
+
   const [product, setProduct] = useState("First Day Shirt");
   const [size, setSize] = useState("M");
   const [moment, setMoment] = useState("첫 출근");
@@ -19,6 +22,21 @@ export default function OrderPage() {
   const [request, setRequest] = useState("");
 
   const price = productPrices[product as keyof typeof productPrices];
+
+  const handleAddToCart = () => {
+    const params = new URLSearchParams({
+      product,
+      size,
+      moment,
+      initial,
+      date,
+      message,
+      request,
+      price: String(price),
+    });
+
+    router.push(`/cart?${params.toString()}`);
+  };
 
   return (
     <main className="min-h-screen bg-[#0f0f0f] px-8 py-12 text-[#f5f5f5]">
@@ -154,6 +172,7 @@ export default function OrderPage() {
 
             <button
               type="button"
+              onClick={handleAddToCart}
               className="w-full bg-white px-8 py-5 text-sm font-semibold tracking-[0.25em] text-black transition hover:bg-neutral-300"
             >
               ADD TO CART
