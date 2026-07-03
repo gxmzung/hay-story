@@ -1,7 +1,37 @@
+"use client";
+
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import SiteNav from "@/components/SiteNav";
 
 export default function CheckoutPage() {
+  const searchParams = useSearchParams();
+
+  const product = searchParams.get("product") || "First Day Shirt";
+  const size = searchParams.get("size") || "M";
+  const moment = searchParams.get("moment") || "첫 출근";
+  const initial = searchParams.get("initial") || "YJ";
+  const date = searchParams.get("date") || "2026.03.02";
+  const message = searchParams.get("message") || "Begin Again";
+  const request = searchParams.get("request") || "";
+
+  const price = Number(searchParams.get("price") || 49000);
+  const shipping = Number(searchParams.get("shipping") || 3000);
+  const total = Number(searchParams.get("total") || price + shipping);
+
+  const completeParams = new URLSearchParams({
+    product,
+    size,
+    moment,
+    initial,
+    date,
+    message,
+    request,
+    price: String(price),
+    shipping: String(shipping),
+    total: String(total),
+  });
+
   return (
     <main className="min-h-screen bg-[#0f0f0f] px-8 py-12 text-[#f5f5f5]">
       <section className="mx-auto max-w-6xl">
@@ -82,7 +112,7 @@ export default function CheckoutPage() {
             </div>
 
             <Link
-              href="/complete"
+              href={`/complete?${completeParams.toString()}`}
               className="block w-full bg-white px-8 py-5 text-center text-sm font-semibold tracking-[0.25em] text-black transition hover:bg-neutral-300"
             >
               PLACE ORDER
@@ -95,30 +125,56 @@ export default function CheckoutPage() {
             </p>
 
             <div className="mt-8 space-y-5 text-sm text-neutral-400">
-              <div className="flex justify-between">
+              <div className="flex justify-between gap-6">
                 <span>Product</span>
-                <span className="text-white">First Day Shirt</span>
+                <span className="text-right text-white">{product}</span>
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex justify-between gap-6">
+                <span>Size</span>
+                <span className="text-right text-white">{size}</span>
+              </div>
+
+              <div className="flex justify-between gap-6">
+                <span>Moment</span>
+                <span className="text-right text-white">{moment}</span>
+              </div>
+
+              <div className="flex justify-between gap-6">
                 <span>Custom</span>
-                <span className="text-white">YJ / Begin Again</span>
+                <span className="text-right text-white">
+                  {initial} / {message}
+                </span>
               </div>
 
-              <div className="flex justify-between">
-                <span>Subtotal</span>
-                <span className="text-white">₩49,000</span>
+              <div className="flex justify-between gap-6">
+                <span>Date</span>
+                <span className="text-right text-white">{date}</span>
+              </div>
+
+              {request && (
+                <div className="border-t border-neutral-800 pt-5">
+                  <p className="text-neutral-500">Request</p>
+                  <p className="mt-2 leading-7 text-white">{request}</p>
+                </div>
+              )}
+
+              <div className="border-t border-neutral-800 pt-5">
+                <div className="flex justify-between">
+                  <span>Subtotal</span>
+                  <span className="text-white">₩{price.toLocaleString()}</span>
+                </div>
               </div>
 
               <div className="flex justify-between">
                 <span>Shipping</span>
-                <span className="text-white">₩3,000</span>
+                <span className="text-white">₩{shipping.toLocaleString()}</span>
               </div>
 
               <div className="border-t border-neutral-800 pt-5">
                 <div className="flex justify-between text-lg font-semibold text-white">
                   <span>Total</span>
-                  <span>₩52,000</span>
+                  <span>₩{total.toLocaleString()}</span>
                 </div>
               </div>
             </div>

@@ -1,7 +1,20 @@
+"use client";
+
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import SiteNav from "@/components/SiteNav";
 
 export default function CompletePage() {
+  const searchParams = useSearchParams();
+
+  const product = searchParams.get("product") || "First Day Shirt";
+  const size = searchParams.get("size") || "M";
+  const moment = searchParams.get("moment") || "첫 출근";
+  const initial = searchParams.get("initial") || "YJ";
+  const date = searchParams.get("date") || "2026.03.02";
+  const message = searchParams.get("message") || "Begin Again";
+  const total = Number(searchParams.get("total") || 52000);
+
   return (
     <main className="min-h-screen bg-[#0f0f0f] px-8 py-12 text-[#f5f5f5]">
       <section className="mx-auto max-w-5xl">
@@ -35,7 +48,7 @@ export default function CompletePage() {
               <p className="text-xs tracking-[0.3em] text-neutral-500">
                 PRODUCT
               </p>
-              <p className="mt-4 text-2xl font-semibold">First Day Shirt</p>
+              <p className="mt-4 text-2xl font-semibold">{product}</p>
             </div>
 
             <div className="border border-neutral-800 bg-[#0f0f0f] p-6">
@@ -43,6 +56,45 @@ export default function CompletePage() {
                 STATUS
               </p>
               <p className="mt-4 text-2xl font-semibold">Received</p>
+            </div>
+          </div>
+
+          <div className="mt-12 border-t border-neutral-800 pt-8">
+            <p className="text-sm tracking-[0.35em] text-neutral-500">
+              CUSTOM DETAIL
+            </p>
+
+            <div className="mt-6 grid gap-4 text-neutral-400 md:grid-cols-2">
+              <p>
+                <span className="text-neutral-500">Size</span>
+                <br />
+                {size}
+              </p>
+              <p>
+                <span className="text-neutral-500">Moment</span>
+                <br />
+                {moment}
+              </p>
+              <p>
+                <span className="text-neutral-500">Initial</span>
+                <br />
+                {initial}
+              </p>
+              <p>
+                <span className="text-neutral-500">Date</span>
+                <br />
+                {date}
+              </p>
+              <p>
+                <span className="text-neutral-500">Message</span>
+                <br />
+                {message}
+              </p>
+              <p>
+                <span className="text-neutral-500">Total</span>
+                <br />
+                ₩{total.toLocaleString()}
+              </p>
             </div>
           </div>
 
