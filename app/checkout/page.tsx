@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import SiteNav from "@/components/SiteNav";
 
 export default function CheckoutPage() {
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   const product = searchParams.get("product") || "First Day Shirt";
+  const productId = searchParams.get("productId") || "first-day-shirt";
   const size = searchParams.get("size") || "M";
   const moment = searchParams.get("moment") || "첫 출근";
   const initial = searchParams.get("initial") || "YJ";
@@ -19,18 +21,48 @@ export default function CheckoutPage() {
   const shipping = Number(searchParams.get("shipping") || 3000);
   const total = Number(searchParams.get("total") || price + shipping);
 
-  const completeParams = new URLSearchParams({
-    product,
-    size,
-    moment,
-    initial,
-    date,
-    message,
-    request,
-    price: String(price),
-    shipping: String(shipping),
-    total: String(total),
-  });
+  const handlePlaceOrder = () => {
+    const order = {
+      id: `HS-${new Date().getFullYear()}-${Date.now()}`,
+      customer: "Guest Customer",
+      product,
+      productId,
+      size,
+      moment,
+      initial,
+      date,
+      message,
+      request,
+      price,
+      shipping,
+      total,
+      status: "Received",
+      createdAt: new Date().toISOString(),
+    };
+
+    const savedOrders = localStorage.getItem("hayoung-orders");
+    const orders = savedOrders ? JSON.parse(savedOrders) : [];
+
+    localStorage.setItem("hayoung-orders", JSON.stringify([order, ...orders]));
+    localStorage.removeItem("hayoung-cart");
+
+    const completeParams = new URLSearchParams({
+      orderId: order.id,
+      product,
+      productId,
+      size,
+      moment,
+      initial,
+      date,
+      message,
+      request,
+      price: String(price),
+      shipping: String(shipping),
+      total: String(total),
+    });
+
+    router.push(`/complete?${completeParams.toString()}`);
+  };
 
   return (
     <main className="min-h-screen bg-[#0f0f0f] px-8 py-12 text-[#f5f5f5]">
@@ -111,12 +143,13 @@ export default function CheckoutPage() {
               />
             </div>
 
-            <Link
-              href={`/complete?${completeParams.toString()}`}
-              className="block w-full bg-white px-8 py-5 text-center text-sm font-semibold tracking-[0.25em] text-black transition hover:bg-neutral-300"
+            <button
+              type="button"
+              onClick={handlePlaceOrder}
+              className="w-full bg-white px-8 py-5 text-center text-sm font-semibold tracking-[0.25em] text-black transition hover:bg-neutral-300"
             >
               PLACE ORDER
-            </Link>
+            </button>
           </form>
 
           <aside className="h-fit border border-neutral-800 bg-[#151515] p-8">
@@ -168,7 +201,9 @@ export default function CheckoutPage() {
 
               <div className="flex justify-between">
                 <span>Shipping</span>
-                <span className="text-white">₩{shipping.toLocaleString()}</span>
+                <span className="text-white">
+                  ₩{shipping.toLocaleString()}
+                </span>
               </div>
 
               <div className="border-t border-neutral-800 pt-5">
@@ -180,8 +215,8 @@ export default function CheckoutPage() {
             </div>
 
             <p className="mt-8 border-t border-neutral-800 pt-6 leading-7 text-neutral-500">
-              다음 단계에서는 주문 내역 저장, 관리자 확인 화면, 결제 연동,
-              이메일 알림 기능을 붙일 수 있습니다.
+              PLACE ORDER를 누르면 현재 주문 정보가 브라우저 localStorage에
+              저장되고 관리자 주문 페이지에서 확인할 수 있습니다.
             </p>
           </aside>
         </div>
