@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SiteNav from "@/components/SiteNav";
 
 const heroImage =
   "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80";
@@ -6,25 +7,7 @@ const heroImage =
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#0f0f0f] text-[#f5f5f5]">
-      <nav className="relative flex items-center justify-center px-8 py-6 text-sm tracking-[0.25em]">
-        <Link href="/" className="absolute left-8 font-semibold">
-          HAYOUNG STUDIO
-        </Link>
-        <div className="flex gap-10 text-neutral-400">
-          <Link href="/story" className="hover:text-white">
-            STORY
-          </Link>
-          <Link href="/collection" className="hover:text-white">
-            COLLECTION
-          </Link>
-          <Link href="/order" className="hover:text-white">
-            ORDER
-          </Link>
-          <Link href="/cart" className="hover:text-white">
-            CART
-          </Link>
-        </div>
-      </nav>
+      <SiteNav center />
 
       <section className="grid min-h-[82vh] items-center gap-10 px-8 md:grid-cols-2">
         <div>

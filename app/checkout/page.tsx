@@ -1,26 +1,11 @@
 import Link from "next/link";
+import SiteNav from "@/components/SiteNav";
 
 export default function CheckoutPage() {
   return (
     <main className="min-h-screen bg-[#0f0f0f] px-8 py-12 text-[#f5f5f5]">
       <section className="mx-auto max-w-6xl">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="text-sm font-semibold tracking-[0.25em]">
-            HAYOUNG STUDIO
-          </Link>
-
-          <div className="flex gap-8 text-xs tracking-[0.25em] text-neutral-400">
-            <Link href="/story" className="hover:text-white">
-              STORY
-            </Link>
-            <Link href="/collection" className="hover:text-white">
-              COLLECTION
-            </Link>
-            <Link href="/cart" className="hover:text-white">
-              CART
-            </Link>
-          </div>
-        </div>
+        <SiteNav />
 
         <div className="mt-20">
           <p className="text-sm tracking-[0.35em] text-neutral-500">
@@ -97,10 +82,10 @@ export default function CheckoutPage() {
             </div>
 
             <Link
-                href="/complete"
-                className="block w-full bg-white px-8 py-5 text-center text-sm font-semibold tracking-[0.25em] text-black transition hover:bg-neutral-300"
+              href="/complete"
+              className="block w-full bg-white px-8 py-5 text-center text-sm font-semibold tracking-[0.25em] text-black transition hover:bg-neutral-300"
             >
-                PLACE ORDER
+              PLACE ORDER
             </Link>
           </form>
 
@@ -139,8 +124,8 @@ export default function CheckoutPage() {
             </div>
 
             <p className="mt-8 border-t border-neutral-800 pt-6 leading-7 text-neutral-500">
-              다음 단계에서는 주문 완료 페이지와 관리자 확인 화면을 연결할 수
-              있습니다.
+              다음 단계에서는 주문 내역 저장, 관리자 확인 화면, 결제 연동,
+              이메일 알림 기능을 붙일 수 있습니다.
             </p>
           </aside>
         </div>

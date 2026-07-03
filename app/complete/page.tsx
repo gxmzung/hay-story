@@ -1,26 +1,11 @@
 import Link from "next/link";
+import SiteNav from "@/components/SiteNav";
 
 export default function CompletePage() {
   return (
     <main className="min-h-screen bg-[#0f0f0f] px-8 py-12 text-[#f5f5f5]">
       <section className="mx-auto max-w-5xl">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="text-sm font-semibold tracking-[0.25em]">
-            HAYOUNG STUDIO
-          </Link>
-
-          <div className="flex gap-8 text-xs tracking-[0.25em] text-neutral-400">
-            <Link href="/story" className="hover:text-white">
-              STORY
-            </Link>
-            <Link href="/collection" className="hover:text-white">
-              COLLECTION
-            </Link>
-            <Link href="/cart" className="hover:text-white">
-              CART
-            </Link>
-          </div>
-        </div>
+        <SiteNav />
 
         <div className="mt-24 border border-neutral-800 bg-[#151515] p-10 md:p-16">
           <p className="text-sm tracking-[0.35em] text-neutral-500">

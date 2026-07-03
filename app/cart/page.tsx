@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import SiteNav from "@/components/SiteNav";
 
 export default function CartPage() {
   const searchParams = useSearchParams();
@@ -21,23 +22,7 @@ export default function CartPage() {
   return (
     <main className="min-h-screen bg-[#0f0f0f] px-8 py-12 text-[#f5f5f5]">
       <section className="mx-auto max-w-6xl">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="text-sm font-semibold tracking-[0.25em]">
-            HAYOUNG STUDIO
-          </Link>
-
-          <div className="flex gap-8 text-xs tracking-[0.25em] text-neutral-400">
-            <Link href="/story" className="hover:text-white">
-              STORY
-            </Link>
-            <Link href="/collection" className="hover:text-white">
-              COLLECTION
-            </Link>
-            <Link href="/order" className="hover:text-white">
-              ORDER
-            </Link>
-          </div>
-        </div>
+        <SiteNav />
 
         <div className="mt-20">
           <p className="text-sm tracking-[0.35em] text-neutral-500">CART</p>
@@ -140,7 +125,7 @@ export default function CartPage() {
               href="/checkout"
               className="mt-8 block w-full bg-white px-8 py-5 text-center text-sm font-semibold tracking-[0.25em] text-black transition hover:bg-neutral-300"
             >
-            CHECKOUT
+              CHECKOUT
             </Link>
 
             <p className="mt-6 leading-7 text-neutral-500">
