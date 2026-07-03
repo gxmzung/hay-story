@@ -10,7 +10,9 @@ export default function Home() {
         <Link href="/" className="absolute left-8 font-semibold">
           HAYOUNG STUDIO
         </Link>
-
+          <Link href="/story" className="hover:text-white">
+            STORY
+          </Link>
         <div className="flex gap-10 text-neutral-400">
           <Link href="/collection" className="hover:text-white">
             COLLECTION
