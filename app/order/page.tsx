@@ -1,19 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-
-const productPrices = {
-  "First Day Shirt": 49000,
-  "New Chapter Blouse": 54000,
-  "Moment Jacket": 79000,
-};
+import { useRouter, useSearchParams } from "next/navigation";
+import { getProductById, products } from "@/data/products";
 
 export default function OrderPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const [product, setProduct] = useState("First Day Shirt");
+  const initialProductId = searchParams.get("product") || "first-day-shirt";
+
+  const initialProduct = useMemo(() => {
+    return getProductById(initialProductId) || products[0];
+  }, [initialProductId]);
+
+  const [productId, setProductId] = useState(initialProduct.id);
   const [size, setSize] = useState("M");
   const [moment, setMoment] = useState("첫 출근");
   const [initial, setInitial] = useState("YJ");
@@ -21,18 +23,19 @@ export default function OrderPage() {
   const [message, setMessage] = useState("Begin Again");
   const [request, setRequest] = useState("");
 
-  const price = productPrices[product as keyof typeof productPrices];
+  const selectedProduct = getProductById(productId) || products[0];
 
   const handleAddToCart = () => {
     const params = new URLSearchParams({
-      product,
+      product: selectedProduct.name,
+      productId: selectedProduct.id,
       size,
       moment,
       initial,
       date,
       message,
       request,
-      price: String(price),
+      price: String(selectedProduct.price),
     });
 
     router.push(`/cart?${params.toString()}`);
@@ -72,13 +75,15 @@ export default function OrderPage() {
                 PRODUCT
               </label>
               <select
-                value={product}
-                onChange={(event) => setProduct(event.target.value)}
+                value={productId}
+                onChange={(event) => setProductId(event.target.value)}
                 className="mt-3 w-full border border-neutral-700 bg-[#0f0f0f] px-4 py-4 text-white outline-none"
               >
-                <option>First Day Shirt</option>
-                <option>New Chapter Blouse</option>
-                <option>Moment Jacket</option>
+                {products.map((product) => (
+                  <option key={product.id} value={product.id}>
+                    {product.name}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -187,7 +192,7 @@ export default function OrderPage() {
             <div className="mt-8 flex h-80 items-center justify-center bg-[#1f1f1f]">
               <div className="text-center">
                 <p className="text-xs tracking-[0.35em] text-neutral-500">
-                  CUSTOM LABEL
+                  {selectedProduct.category}
                 </p>
                 <p className="mt-5 text-3xl font-semibold">
                   {message || "Your Message"}
@@ -201,7 +206,9 @@ export default function OrderPage() {
             <div className="mt-8 space-y-4 text-sm text-neutral-400">
               <div className="flex justify-between gap-6">
                 <span>Product</span>
-                <span className="text-right text-white">{product}</span>
+                <span className="text-right text-white">
+                  {selectedProduct.name}
+                </span>
               </div>
 
               <div className="flex justify-between gap-6">
@@ -217,14 +224,14 @@ export default function OrderPage() {
               <div className="flex justify-between gap-6">
                 <span>Custom</span>
                 <span className="text-right text-white">
-                  Initial / Date / Message
+                  {selectedProduct.custom.join(" / ")}
                 </span>
               </div>
 
               <div className="flex justify-between gap-6">
                 <span>Price</span>
                 <span className="text-right text-white">
-                  ₩{price.toLocaleString()}
+                  ₩{selectedProduct.price.toLocaleString()}
                 </span>
               </div>
             </div>
